@@ -3,10 +3,14 @@ import { useLocalStorage } from "./useLocalStorage";
 import { Sorting, Grouping } from "@devexpress/dx-react-grid";
 
 export function useSorting(
+  templateName: string,
   grouping: Grouping[],
   setCurrentPage: (page: number) => any
 ) {
-  const [sorting, setSorting] = useLocalStorage<Sorting[]>("sorting2", []);
+  const [sorting, setSorting] = useLocalStorage<Sorting[]>(
+    `${templateName}.sorting`,
+    []
+  );
 
   const setNewSorting = (newSorting: Sorting[]) => {
     setSorting(newSorting);
@@ -31,7 +35,10 @@ export function useSorting(
   return { sorting: groupedSorting, setSorting: setNewSorting };
 }
 
-export function createGroupedSorting(grouping: Grouping[], sorting: Sorting[]) {
+export function createGroupedSorting(
+  grouping: Grouping[] = [],
+  sorting: Sorting[] = []
+) {
   const newSorting: Sorting[] = [];
   for (let index = 0; index < grouping.length; index++) {
     const sortedColumn = sorting.length > index ? sorting[index] : undefined;
@@ -56,14 +63,16 @@ export function createGroupedSorting(grouping: Grouping[], sorting: Sorting[]) {
     }
   }
 
-  const lastSortedColumn = sorting[sorting.length - 1];
+  if (sorting.length) {
+    const lastSortedColumn = sorting[sorting.length - 1];
 
-  if (
-    newSorting
-      .map(sort => sort.columnName)
-      .indexOf(lastSortedColumn.columnName) === -1
-  ) {
-    newSorting.push(lastSortedColumn);
+    if (
+      newSorting
+        .map(sort => sort.columnName)
+        .indexOf(lastSortedColumn.columnName) === -1
+    ) {
+      newSorting.push(lastSortedColumn);
+    }
   }
 
   return newSorting;

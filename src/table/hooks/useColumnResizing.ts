@@ -13,10 +13,13 @@ export function createDefaultColumnSizes(
   });
 }
 
-export function useColumnResizing(columns: TypedDataColumn[]) {
+export function useColumnResizing(
+  templateName: string,
+  columns: TypedDataColumn[]
+) {
   const [columnWidths, setColumnWidths] = useLocalStorage<
     TableColumnWidthInfo[]
-  >("columnWidths2", createDefaultColumnSizes(columns));
+  >(`${templateName}.columnSizing`, createDefaultColumnSizes(columns));
 
   return { columnWidths, setColumnWidths };
 }

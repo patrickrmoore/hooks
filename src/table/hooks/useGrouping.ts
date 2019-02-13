@@ -1,10 +1,13 @@
 import { useLocalStorage } from "./useLocalStorage";
 import { Grouping } from "@devexpress/dx-react-grid";
 
-export function useGrouping() {
-  const [grouping, setGrouping] = useLocalStorage<Grouping[]>("grouping", []);
+export function useGrouping(templateName: string) {
+  const [grouping, setGrouping] = useLocalStorage<Grouping[]>(
+    `${templateName}.grouping`,
+    []
+  );
   const [expandedGroups, setExpandedGroups] = useLocalStorage<string[]>(
-    "expandedGroups",
+    `${templateName}.grouping.expanded`,
     []
   );
   return { grouping, setGrouping, expandedGroups, setExpandedGroups };

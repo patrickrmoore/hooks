@@ -15,7 +15,7 @@ export default () => {
         </Row>
         <Row>
           <Col className="p-2">
-            <Button onClick={() => generatedData.setRows(generateNewData())}>
+            <Button onClick={() => generatedData.generateNewRows()}>
               New Data
             </Button>
           </Col>

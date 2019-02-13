@@ -25,6 +25,7 @@ export function useLocalStorage<T>(
   });
 
   const setItem = (newValue: T) => {
+    console.log(`setting local storage: ${key}`);
     setValue(newValue);
     window.localStorage.setItem(key, serializeValue(newValue));
   };

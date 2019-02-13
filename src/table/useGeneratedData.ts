@@ -35,5 +35,9 @@ export default () => {
   );
   const [rows, setRows] = React.useState<any[]>(defaultRows(1000));
 
-  return { columns, rows, setColumns, setRows };
+  const generateNewRows = () => {
+    setRows(defaultRows(1000));
+  };
+
+  return { columns, rows, setColumns, generateNewRows };
 };
