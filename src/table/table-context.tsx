@@ -23,7 +23,16 @@ export function useTableContext(
   const order = useColumnOrdering(templateName, columns);
   const visibility = useColumnVisibility(templateName, columns);
 
-  return { grouping, sorting, paging, sizing, order, visibility };
+  return {
+    templateName,
+    columns,
+    grouping,
+    sorting,
+    paging,
+    sizing,
+    order,
+    visibility
+  };
 }
 
 export const TableContainer = createContainer(

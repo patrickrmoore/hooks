@@ -9,7 +9,9 @@ const defaultColumns: TypedDataColumn[] = [
   { name: "city", title: "City", type: DataColumnType.text },
   { name: "state", title: "State", type: DataColumnType.text },
   { name: "zip", title: "Zip", type: DataColumnType.text },
-  { name: "age", title: "Age", type: DataColumnType.number }
+  { name: "age", title: "Age", type: DataColumnType.number },
+  { name: "dateOfBirth", title: "Birthday", type: DataColumnType.date },
+  { name: "selected", title: "Selected", type: DataColumnType.boolean }
 ];
 
 const defaultRows = (length: number) => {
@@ -22,7 +24,10 @@ const defaultRows = (length: number) => {
       city: faker.address.city(),
       state: faker.address.state(),
       zip: faker.address.zipCode(),
-      age: faker.random.number()
+      age:
+        index % 84 === 0 ? undefined : faker.random.number({ min: 0, max: 80 }),
+      dateOfBirth: index % 84 === 0 ? undefined : faker.date.past(20),
+      selected: faker.random.boolean()
     };
     rows.push(row);
   }
@@ -36,7 +41,7 @@ export default () => {
   const [rows, setRows] = React.useState<any[]>(defaultRows(1000));
 
   const generateNewRows = () => {
-    setRows(defaultRows(1000));
+    setRows(rows.concat(defaultRows(1000)));
   };
 
   return { columns, rows, setColumns, generateNewRows };
